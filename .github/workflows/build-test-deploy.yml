@@ -1,0 +1,20 @@
+name: build-test-deploy
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+  workflow_dispatch:
+jobs:
+  build:
+    name: build job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup nodeJs
+        uses: actions/setup-node@v6.0.0
+      - name: install npm
+        run: npm install
+      - name: build the app
+        run: npm run build
+  
