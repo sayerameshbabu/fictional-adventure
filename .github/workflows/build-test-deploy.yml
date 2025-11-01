@@ -17,4 +17,15 @@ jobs:
         run: npm install
       - name: build the app
         run: npm run build
-  
+  test:
+    needs: build
+    name: test job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup nodeJs
+        uses: actions/setup-node@v6.0.0
+      - name: install npm
+        run: npm install
+      - name: test the app
+        run: npm run test
