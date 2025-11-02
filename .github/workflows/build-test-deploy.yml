@@ -10,11 +10,7 @@ jobs:
     name: build job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: setup nodeJs
-        uses: actions/setup-node@v6.0.0
-      - name: install npm
-        run: npm install
+      - uses: ./.github/actions/setup-node
       - name: build the app
         run: npm run build
   test:
