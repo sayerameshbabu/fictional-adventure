@@ -44,8 +44,8 @@ jobs:
           static_site_generator: next
       - run: npm install
       - run: npm run build    
-      # - name: upload artifcats
-      #   uses: actions/upload-pages-artifact@v3
+      - name: upload artifcats
+        uses: actions/upload-pages-artifact@v3
       #   with:
       #     path: './out'
       - id: deployment
