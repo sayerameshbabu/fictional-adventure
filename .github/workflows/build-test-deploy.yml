@@ -7,6 +7,12 @@ on:
   workflow_dispatch:
 env:
   NODE_ENV: prod
+  secret1: ${{ secrets.PROD_ENV_SECRET }}
+  secret2: ${{ secrets.REPO_SECRET }}
+  secret3: ${{ secrets.PROD_ENV_VARIABLE }}
+  secret4: ${{ secrets.REPO_VARIABLE }}
+  secret5: ${{ secrets.CODESPACE_REPO_SECRET }}
+  secret6: ${{ secrets.DEPENDABOT_REPO_SECRET }}
 jobs:
   build:
     env:
@@ -36,6 +42,12 @@ jobs:
           echo $GITHUB_SERVER_URL
           echo $GITHUB_API_URL
           echo $GITHUB_GRAPHQL_URL
+          echo $secret1
+          echo $secret2
+          echo $secret3
+          echo $secret4
+          echo $secret5
+          echo $secret6          
       # - uses: ./.github/actions/setup-node
   #     - name: build the app
   #       run: npm run build
