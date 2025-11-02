@@ -5,55 +5,60 @@ on:
       - main
       - feature/*
   workflow_dispatch:
+env:
+  a: hello
+  b: hi
 jobs:
   build:
     name: build job
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-node
-      - name: build the app
-        run: npm run build
-  # test:
+      - run: echo $a
+      - run: echo $b
+      # - uses: ./.github/actions/setup-node
+  #     - name: build the app
+  #       run: npm run build
+  # # test:
+  # #   needs: build
+  # #   name: test job
+  # #   runs-on: ubuntu-latest
+  # #   steps:
+  # #     - uses: actions/checkout@v4
+  # #     - name: setup nodeJs
+  # #       uses: actions/setup-node@v6.0.0
+  # #     - name: install npm
+  # #       run: npm install
+  # #     - name: test the app
+  # #       run: npm run test
+  # deploy:
   #   needs: build
-  #   name: test job
+  #   name: deploy job
   #   runs-on: ubuntu-latest
+
+  #   permissions:
+  #     contents: write
+  #     pages: write
+  #     id-token: write
+
   #   steps:
   #     - uses: actions/checkout@v4
-  #     - name: setup nodeJs
-  #       uses: actions/setup-node@v6.0.0
-  #     - name: install npm
-  #       run: npm install
-  #     - name: test the app
-  #       run: npm run test
-  deploy:
-    needs: build
-    name: deploy job
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - uses: actions/configure-pages@v4
-        with:
-          static_site_generator: next
-      - run: npm install
-      - run: npm run build    
-      - name: upload artifcats
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './out'
-      - id: deployment
-        uses: actions/deploy-pages@v4
+  #     - uses: actions/setup-node@v4
+  #     - uses: actions/configure-pages@v4
+  #       with:
+  #         static_site_generator: next
+  #     - run: npm install
+  #     - run: npm run build    
+  #     - name: upload artifcats
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: './out'
+  #     - id: deployment
+  #       uses: actions/deploy-pages@v4
     
-    environment: 
-      name: production
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment: 
+  #     name: production
+  #     url: ${{ steps.deployment.outputs.page_url }}
       
 
     
