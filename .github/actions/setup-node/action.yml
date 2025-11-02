@@ -1,0 +1,8 @@
+name: setup nodejs & npm
+description: these action/s is/are for setting up node
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v6.0.0
+    - run: npm install
