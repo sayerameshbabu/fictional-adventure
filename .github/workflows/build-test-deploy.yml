@@ -26,3 +26,35 @@ jobs:
         run: npm install
       - name: test the app
         run: npm run test
+  deploy:
+    needs: test
+    name: deploy job
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: actions/configure-pages@v4
+        with:
+          static_site_generator: next
+      - run: npm install
+      - run: npm run build    
+      - name: upload artifcats
+        uses: actions/upload-page-artifact@v3
+        with:
+          path: './out'
+      - id: deployment
+        uses: actions/deploy-pages@v4
+    
+    environment: 
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+
+    
+    
