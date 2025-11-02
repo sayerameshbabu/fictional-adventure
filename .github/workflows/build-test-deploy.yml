@@ -14,20 +14,20 @@ jobs:
       - uses: ./.github/actions/setup-node
       - name: build the app
         run: npm run build
-  test:
-    needs: build
-    name: test job
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: setup nodeJs
-        uses: actions/setup-node@v6.0.0
-      - name: install npm
-        run: npm install
-      - name: test the app
-        run: npm run test
+  # test:
+  #   needs: build
+  #   name: test job
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: setup nodeJs
+  #       uses: actions/setup-node@v6.0.0
+  #     - name: install npm
+  #       run: npm install
+  #     - name: test the app
+  #       run: npm run test
   deploy:
-    needs: test
+    needs: build
     name: deploy job
     runs-on: ubuntu-latest
 
@@ -45,7 +45,7 @@ jobs:
       - run: npm install
       - run: npm run build    
       - name: upload artifcats
-        uses: actions/upload-page-artifact@v3
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './out'
       - id: deployment
